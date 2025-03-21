@@ -1,6 +1,6 @@
 from source import DMClient
 
-dm= DMClient.DM插件单例
+dm = DMClient.dm_client("127.0.0.1","9000",0)
 
 def 左键点击(x=0,y=0,延迟=200):
     """依赖dm插件"""

@@ -1,18 +1,17 @@
+import os
+import atexit
+
+# from source import tools
+# tools.确认DM插件后台服务端运行(0)
+
 from source import DMClient
+from source import dm_tool
+from source import game
+
 
 if __name__ == '__main__':
-    # tools.确认DM插件后台服务端运行(1)
-    dm = DMClient.DM插件单例
-    
-    print(dm.MoveTo(500,500))
-    
-    
-
-
-
-
-
-
+    dm = DMClient.dm_client("127.0.0.1","9000",1)
+    dm.UnBindWindow()
 
 
 

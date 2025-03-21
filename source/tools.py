@@ -122,8 +122,8 @@ def 鼠标滚轮(x=0,y=0):
 
 
 def 确认DM插件后台服务端运行(cmd窗口是否显示=0):
-    窗口标题 = r"C:\Users\ADMINI~1\Desktop\python\DM-server\.venv\Scripts\python.exe"
-    服务端运行脚本路径 = r"C:\Users\Administrator\Desktop\python\DM-server\start.bat"
+    窗口标题 = r"C:\Users\ADMINI~1\Desktop\DM-server\PY32\python.exe"
+    服务端运行脚本路径 = r"C:\Users\Administrator\Desktop\DM-server\start.bat"
     hwnd = win32gui.FindWindow(None,窗口标题)
     if hwnd:
         print("DM插件后台服务端正在运行,句柄:",hwnd)

@@ -7,29 +7,32 @@
 @Email:3475228828@qq.com
 @func:功能
 """
+
 import json
 import sys
 import requests
 import os
 import json
 
-
 class dm_client:
-    当前实例 = None
-    def __init__(self, ip, prot):
+    实例字典 = {}
+
+    def __init__(self, ip, prot, index=0):
         self.ip = ip
         self.prot = prot
-        
-    def __new__(cls,*args,**kwargs):
-        if cls.当前实例 is None:
-            实例 = super(cls,dm_client).__new__(cls)
-            print('factory_按钮工厂创建成功!!!')
-            cls.当前实例 = 实例
-            return cls.当前实例
-        else:
-            print('factory_按钮工厂返回成功')
-            return cls.当前实例
+        self.index = index
 
+    def __new__(cls, ip, prot, index=0):
+        key = (ip, prot, index)
+        if key not in cls.实例字典:
+            实例 = super(dm_client, cls).__new__(cls)
+            # print(f'大漠对象{index}创建成功!!!')
+            cls.实例字典[key] = 实例
+        else:
+            pass
+            # print(f'大漠对象{index}返回成功')
+        return cls.实例字典[key]
+        
     def __getattribute__(self,item):
         ret = super().__getattribute__(item)
         if str(type(ret))=="<class 'function'>" or str(type(ret))=="<class 'method'>":
@@ -37,7 +40,7 @@ class dm_client:
             temp = ret
             def res(*args):
                 data = {
-                    "dm_num":0,# 如果不写默认使用序号0
+                    "dm_num":self.index,# 如果不写默认使用序号0
                     "func":str(temp.__name__),
                     "args":args,
                 }
@@ -45,7 +48,9 @@ class dm_client:
             return res
         else:
             return ret
-
+    @staticmethod
+    def GetDmCount():
+        pass
 
     @staticmethod
     def FindPic(x1, y1, x2, y2, pic_name, delta_color, sim, dir):
@@ -113,29 +118,7 @@ class dm_client:
         pass
     
     @staticmethod
-    def EnableRealMouse(enable,mousedelay,mousestep):
-        """
-        启用或禁用鼠标模拟:
-        参数定义:
-
-            enable 整形数: 0 关闭模拟
-                           1 开启模拟(直线模拟)
-                           2 开启模拟(随机曲线,更接近真实)
-                           3 开启模拟(小弧度曲线,弧度随机)
-                           4 开启模拟(大弧度曲线,弧度随机)
-            
-            mousedelay 整形数: 单位是毫秒. 表示在模拟鼠标移动轨迹时,每移动一次的时间间隔.这个值越大,鼠标移动越慢. 必须大于0,否则会失败.
-            Mousestep 整形数: 表示在模拟鼠标移动轨迹时,每移动一次的距离. 这个值越大，鼠标移动越快速.
-            
-            返回值:
-            0: 失败
-            1: 成功
-            
-            示例:
-            dm.EnableRealMouse 1,20,30
-            dm.MoveTo 100,100
-            dm.MoveTo 500,500
-        """
+    def GetID():
         pass
     
     @staticmethod
@@ -171,7 +154,7 @@ class dm_client:
         
         
         
-    """按键操作合集: back-退格 space-空格 cap-大写  ctrl alt shift win tab esc enter up down leftright """
+    """按键操作合集: back-退格 space-空格 cap-大写  ctrl alt shift win tab esc enter up down leftright------------------------------------- """
     @staticmethod
     def KeyDownChar(key_str):
         """模拟键盘按住"""
@@ -192,8 +175,6 @@ class dm_client:
     def GetCursorPos():
         """获取当前鼠标的位置"""
         pass
-    
-    
     
     
     """窗口操作"""
@@ -295,18 +276,11 @@ class dm_client:
         """is_show 整形数: 0为隐藏,1为显示"""
         pass
         
-    @staticmethod #获取DmCount
-    def GetDmCount():
-        pass
-    
     @staticmethod # 获取注册在系统中的dm.dll的路径.
     def GetBasePath():
         pass
     
-    
-    
-        
-    """文件操作"""
+    """文件操作---------------------------------------------------------------------------------------------------------------------------"""
     @staticmethod # 下载文件
     def DownloadFile(url,save_file,timeout):
         pass
@@ -317,33 +291,107 @@ class dm_client:
         """
     
     
+    """后台设置---------------------------------------------------------------------------------------------------------------------------"""
+    @staticmethod
+    def BindWindow(hwnd, display, mouse, keypad, mode): pass
+    
+    @staticmethod
+    def BindWindowEx(hwnd, display, mouse, keypad, public, mode): pass
+    
+    @staticmethod
+    def DownCpu(type, rate): pass
+    
+    @staticmethod
+    def EnableBind(enable): pass
+    
+    @staticmethod
+    def EnableFakeActive(enable): pass
+    
+    @staticmethod
+    def EnableIme(enable): pass
+    
+    @staticmethod
+    def EnableKeypadMsg(enable): pass
+    
+    @staticmethod
+    def EnableKeypadPatch(enable): pass
+    
+    @staticmethod
+    def EnableKeypadSync(enable, time_out): pass
+    
+    @staticmethod
+    def EnableMouseMsg(enable): pass
+    
+    @staticmethod
+    def EnableMouseSync(enable, time_out): pass
+    
+    @staticmethod
+    def EnableRealKeypad(enable): pass
+    
+    @staticmethod
+    def EnableRealMouse(enable, mousedelay, mousestep): pass
+    
+    @staticmethod
+    def EnableSpeedDx(enable): pass
+    
+    @staticmethod
+    def ForceUnBindWindow(hwnd): pass
+    
+    @staticmethod
+    def GetBindWindow(): pass
+    
+    @staticmethod
+    def GetFps(): pass
+    
+    @staticmethod
+    def HackSpeed(rate): pass
+    
+    @staticmethod
+    def IsBind(hwnd): pass
+    
+    @staticmethod
+    def LockDisplay(lock): pass
+    
+    @staticmethod
+    def LockInput(lock): pass
+    
+    @staticmethod
+    def LockMouseRect(x1, y1, x2, y2): pass
+    
+    @staticmethod
+    def SetAero(enable): pass
+    
+    @staticmethod
+    def SetDisplayDelay(time): pass
+    
+    @staticmethod
+    def SetDisplayRefreshDelay(time): pass
+    
+    @staticmethod
+    def SetInputDm(dm_id, rx, ry): pass
+    
+    @staticmethod
+    def SwitchBindWindow(hwnd): pass
+    
+    @staticmethod
+    def UnBindWindow(): pass
     
     
     
     
     
     
+    @staticmethod
+    def ClientToScreen(hwnd,x,y):pass
+    
+    @staticmethod
+    def GetLastError():pass
+    
+    @staticmethod
+    def EnumWindowSuper(spec1,flag1,type1,spec2,flag2,type2,sort):pass
+
     
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-DM插件单例 = dm_client("127.0.0.1","9000")
+
