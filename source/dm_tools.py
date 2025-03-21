@@ -57,7 +57,7 @@ def 找色循环(text,回调函数=0,是否移动鼠标=0,单次找色=0):
     elif 回调函数 == 1:
         左键点击(延迟=200,x=arr["x"],y=arr['y'])
         
-def 查找窗口标题(title=r"C:\Users\ADMINI~1\Desktop\python\DM-server\.venv\Scripts\python.exe")->int:
+def 查找窗口标题(title=r"C:\Users\ADMINI~1\Desktop\python\DM-server\.venv\Scripts\python.exe")->list[int]:
     keep = dm.EnumWindow(0,title,"",1 + 32)
     hwld_LIST: list = keep['value'].split(",")
     return [int(k) for k in hwld_LIST if k != ""]
@@ -67,13 +67,6 @@ def 组合按键(a="win",b="d"):
     dm.KeyPressChar(b)
     dm.KeyUpChar(a)
 
-def 等待程序打开并激活窗口(title="ToDesk云电脑",窗口状态=1)->list:
-    while True:
-        hwld_todesk = 查找窗口标题(title)
-        if hwld_todesk:
-            if 窗口状态:dm.SetWindowState(hwld_todesk[-1],窗口状态)
-            break
-    return hwld_todesk
 
 
 def 确认点击完毕(text):

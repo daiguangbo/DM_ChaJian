@@ -22,23 +22,17 @@ def 截图(path,是否截取全屏=1,x=0,y=0,w=1280,h=720):
         region_screenshot = PIL.ImageGrab.grab(bbox=bbox)
         region_screenshot.save(path)
 
-def 打开软件并将窗口置于前台(path=0,windos_text=0,是否最大化=0):
-    """
-        使用范例:打开软件并将窗口置于前台(r"D:\App\ToDesk_Daas\ToDesk_Daas.exe","ToDesk云电脑")
-        函数原理:os模块打开软件后循环查找标题为指定文本的窗口,然后抓取句柄,觉得是否最大化,会阻塞进程
-        依赖模块:import os,win32gui,time
-    """
-    os.system(path)
+def 打开软件并获取句柄(path:str="",litile=0,是否最大化=0):
+    index = 0
     while True:
-        hwnd = win32gui.FindWindow(None,windos_text)
-        if hwnd: print("软件成功运行,句柄&标题:",hwnd,"&",windos_text);win32gui.BringWindowToTop(hwnd);break
-        else: print("未找到指定标题的窗口")
-        time.sleep(0.5)
-    if 是否最大化:
-        win32gui.ShowWindow(hwnd,win32con.SW_MAXIMIZE)
-    else:
-        win32gui.ShowWindow
-
+        hwnd = win32gui.FindWindow(None,litile)
+        if hwnd: print("软件成功运行,句柄&标题:",hwnd,"&",litile);break
+        else:
+            if index == 0:
+                print(1111111111111111111111111111111111111)
+                os.system("start "+path);index+=1
+            print("未找到指定标题的窗口")
+    return hwnd
 def 打开网页(url):
     os.system(r"C:\Users\Administrator\Desktop\360浏览器X.lnk " + url)
 

@@ -34,17 +34,11 @@ class 测试类:
             print(f'测试对象{index}返回成功')
         return cls.实例字典[key]
     
+    # noinspection PyMethodParameters
     def 测试方法(cls,参数):
         print(cls.实例字典[参数])
 
-class 测试类_子类(测试类):
-    实例字典 = {}
-    def __init__(self,ip,prot,index=0):
-        super().__init__(self,ip,prot,index=0)
 
-    def 测试函数(cls):
-        测试参数 = ("127.0.0.1", "9000", 1)
-        cls.测试方法(测试参数)
     
 if __name__ == '__main__':
     # 不同参数的单例创建测试
@@ -63,13 +57,7 @@ if __name__ == '__main__':
     text3x = 测试类("127.0.0.1", "9000", 3) #测试对象3返回成功
     print(text1 == text1x,"and",text2 == text2x)  #True and True
     
-    # 继承子类测试
-    test1 = 测试类("127.0.0.1", "9000", 1,单例类=测试类_子类)  #测试对象1返回成功
-    test2 = 测试类("127.0.0.1", "9000", 2,单例类=测试类_子类)  #测试对象2返回成功
-    test3 = 测试类("127.0.0.1", "9000", 3,单例类=测试类_子类)  #测试对象3返回成功
-    
-    
-    
+
     
     
     

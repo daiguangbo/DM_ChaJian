@@ -249,6 +249,7 @@ class dm_client:
         返回值:
             int: 操作结果，0 表示失败，1 表示成功。
         """
+    @staticmethod
     def GetWindowState(hwnd,flag):#检测窗口属性
         pass
     

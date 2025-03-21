@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import time
 
 # @PyCharm：2024.2.1
 # @Python：3.11
@@ -10,11 +9,10 @@ import time
 # @作者：LexiSiy
 # @邮箱：2172500693@163.com
 
-
+import time
 from source import DMClient
-dm = DMClient.dm_client("127.0.0.1","9000",0)
 
-
+dm = DMClient.dm_client("127.0.0.1", "9000", 0)
 def 左键点击(x=0,y=0,延迟=200):
     dm.Delay(延迟)
     if x != 0 and y != 0:
@@ -35,6 +33,18 @@ def 提取颜色和坐标(str):
         "y":y,
         "color":color
     }
+
+
+def 提取颜色和坐标_aa(str):
+    # 分割输入字符串,提取坐标和颜色
+    parts = str.split()
+    坐标 = parts[0].split(',')
+    x,y = int(坐标[0]),int(坐标[1])
+    
+    # 调整顺序为 RGB
+    color = parts[1]
+    color = color[4:6] + color[2:4] + color[0:2]
+    return x,y
 
 def 单点找色_前台(arr: dict,相似度=0.9,备注="",是否打印=1):
     result = dm.CmpColor(arr["x"],arr["y"],arr["color"],相似度)
@@ -98,22 +108,22 @@ def 最大化窗口(hwld):
     dm.SetWindowState(hwld,1)
     dm.SetWindowState(hwld,4)
 
-def 窗口绑定dm对象(dm, hwnd, display="dx2", mouse="windows3", keypad="windows", public="dx.public.graphic.protect", mode=0):
+def 窗口绑定dm对象(dms, hwnd, display="dx2", mouse="dx.mouse.raw.input|dx.mouse.position.lock.message", keypad="windows", public="dx.public.graphic.protect", mode=0):
     """
     绑定指定窗口到大漠对象。
 
     :param dm: 大漠对象实例
     :param hwnd: 窗口句柄列表，第一个元素为需要绑定的窗口句柄
     :param display: 屏幕颜色获取方式，默认值为 "normal"
-    :param mouse: 鼠标仿真模式，默认值为 "windows3"
+    :param mouse: 鼠标仿真模式，默认值为 "windows3" #TODO dx.mouse.raw.input
     :param keypad: 键盘仿真模式，默认值为 "windows"
     :param public: 公共属性，默认值为 "dx.public.graphic.protect"
     :param mode: 绑定模式，默认值为 0
     :return: None
     """
-    print(dm.BindWindowEx(hwnd, display, mouse, keypad, public, mode),窗口绑定dm对象.__name__)
-    
+    print(dms.BindWindowEx(hwnd, display, "dx.mouse.raw.input|dx.mouse.position.lock.message", keypad, public, mode),窗口绑定dm对象.__name__)
 
+    
 def 获取函数名称(func):
     return " ---函数名称:" + func.__name__ + "()"
 
