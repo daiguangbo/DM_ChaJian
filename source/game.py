@@ -87,7 +87,7 @@ def 关闭软件程序(hwnd):
     win32api.TerminateProcess(handle,0)
     print(f"已结束进程 ID 为 {pid} 的程序")
 def 计算窗口和屏幕的坐标偏移(hwnd,x偏移=8,y偏移=31)-> tuple[int,int]:
-    print(dm.ClientToScreen(15074330,0,0))  # TODO 临时测试
+    print(dm.ClientToScreen(15074330,0,0),"临时测试")  # TODO 临时测试
     窗口状态 = win32gui.GetWindowPlacement(hwnd)
     print("窗口状态:",窗口状态)
     x,y = 窗口状态[4][0]+x偏移,窗口状态[4][1]+y偏移
@@ -162,7 +162,7 @@ from source import tools
 # 标题 = r"RamMap - Sysinternals: www.sysinternals.com"
 
 # 窗口绑定dm
-hwnd = 15074330
+hwnd = hwnd模块.获取窗口句柄_标题(标题)
 print(hwnd,type(hwnd),"  ",dm,dm1)
 dm_tool.窗口绑定dm对象(dm1,hwnd)
 hwnd模块.设置窗口状态(hwnd,位置大小=1)
@@ -176,22 +176,12 @@ hwnd模块.设置窗口状态(hwnd,位置大小=1)
 # dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
 
 
-x,y = 计算相对坐标(hwnd,"602,443  FFFFFF",偏x=0,偏y=0)
+x,y = 计算相对坐标(hwnd,"774,509  404040",偏x=0,偏y=0)
 # x,y = dm_tool.提取颜色和坐标_aa("503,809  FFFFFF")
+dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.RightClick())
+dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.RightClick())
+dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.RightClick())
 dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
-
-x,y = 计算相对坐标(hwnd,"975,867  C0772B",偏x=0,偏y=0)
-# x,y = dm_tool.提取颜色和坐标_aa("503,809  FFFFFF")
-dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
-
-x,y = 计算相对坐标(hwnd,"602,443  FFFFFF",偏x=0,偏y=0)
-# x,y = dm_tool.提取颜色和坐标_aa("503,809  FFFFFF")
-dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
-
-x,y = 计算相对坐标(hwnd,"975,867  C0772B",偏x=0,偏y=0)
-# x,y = dm_tool.提取颜色和坐标_aa("503,809  FFFFFF")
-dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
-
 
 
 # dm.MoveTo(435,264);dm.LeftClick()
