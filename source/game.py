@@ -162,33 +162,37 @@ from source import tools
 # 标题 = r"RamMap - Sysinternals: www.sysinternals.com"
 
 # 窗口绑定dm
-hwnd = hwnd模块.获取窗口句柄_标题(标题)
+hwnd = 132096 # dm_tool.查找窗口标题("Chrome Legacy Window")
 print(hwnd,type(hwnd),"  ",dm,dm1)
 dm_tool.窗口绑定dm对象(dm1,hwnd)
 hwnd模块.设置窗口状态(hwnd,位置大小=1)
 
-# x,y = 计算相对坐标(hwnd,"610,444  F1ECFF")
-# # x,y = dm_tool.提取颜色和坐标_aa("503,809  FFFFFF")
-# dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
+
+
+# x,y = 计算相对坐标(hwnd,"380,393  E5E3E3",偏x=0,偏y=0)
+# time.sleep(1);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
 #
-# x,y = 计算相对坐标(hwnd,"977,874  C0782B")
-# # x,y = dm_tool.提取颜色和坐标_aa("503,809  FFFFFF")
-# dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
+# x,y = 计算相对坐标(hwnd,"716,470  FEFEFE",偏x=0,偏y=0)
+# time.sleep(1);print(dm1.MoveTo(x,y));print(dm1.LeftClick());dm1.LeftClick()
+#
+# x,y = 计算相对坐标(hwnd,"1317,479  F5B1AA",偏x=0,偏y=0)
+# time.sleep(1);print(dm1.MoveTo(x,y));print(dm1.LeftClick());dm1.LeftClick()
+#
+# x,y = 计算相对坐标(hwnd,"1537,823  FF907A",偏x=0,偏y=0)
+# time.sleep(1);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
+#
+# x,y = 计算相对坐标(hwnd,"1482,696  8A8786",偏x=0,偏y=0)
+# time.sleep(1);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
 
 
-x,y = 计算相对坐标(hwnd,"774,509  404040",偏x=0,偏y=0)
-# x,y = dm_tool.提取颜色和坐标_aa("503,809  FFFFFF")
-dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.RightClick())
-dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.RightClick())
-dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.RightClick())
-dm.Delay(400);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
 
-
-# dm.MoveTo(435,264);dm.LeftClick()
-# dm.MoveTo(435,264);dm.LeftClick()
-# dm.MoveTo(435,264);dm.LeftClick()
-
-
-# x,y = 计算相对坐标(hwnd,"759,948  C8C8C8")
-# if x and y:print(dm1.MoveTo(x,y))
-# if x and y:print(dm1.RightClick())
+def 左键点击_后台(text):
+    x,y = 计算相对坐标(hwnd,text,偏x=0,偏y=0)
+    dm1.Delay(400)
+    print(dm1.MoveTo(x,y));
+    print(dm1.LeftDoubleClick())
+    
+左键点击_后台("715,471  FFFFFF")
+左键点击_后台("502,302  A8A5A5")
+左键点击_后台("672,466  59514C")
+左键点击_后台("867,486  59514C")

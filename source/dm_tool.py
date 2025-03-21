@@ -108,7 +108,7 @@ def 最大化窗口(hwld):
     dm.SetWindowState(hwld,1)
     dm.SetWindowState(hwld,4)
 
-def 窗口绑定dm对象(dms, hwnd, display="dx2", mouse="dx.mouse.raw.input|dx.mouse.position.lock.message", keypad="windows", public="dx.public.graphic.protect", mode=0):
+def 窗口绑定dm对象(dms, hwnd, display="dx2", mouse="windows3", keypad="windows", public="dx.public.graphic.protect", mode=0):
     """
     绑定指定窗口到大漠对象。
 
@@ -121,8 +121,8 @@ def 窗口绑定dm对象(dms, hwnd, display="dx2", mouse="dx.mouse.raw.input|dx.
     :param mode: 绑定模式，默认值为 0
     :return: None
     """
-    # print(dms.BindWindowEx(hwnd, display, "dx.mouse.raw.input|dx.mouse.position.lock.message", keypad, public, mode),窗口绑定dm对象.__name__)
-    print(dms.BindWindowEx(hwnd,display, "dx.mouse.position.lock.api|dx.mouse.position.lock.message|dx.mouse.state.message", keypad,public, 0),窗口绑定dm对象.__name__)
+    print(dms.BindWindowEx(hwnd, display, mouse, keypad, public, mode),窗口绑定dm对象.__name__)
+    # print(dms.BindWindowEx(hwnd,display, "dx.mouse.position.lock.api|dx.mouse.position.lock.message|dx.mouse.state.message", keypad,public, 0),窗口绑定dm对象.__name__)
     
 def 获取函数名称(func):
     return " ---函数名称:" + func.__name__ + "()"

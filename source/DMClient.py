@@ -391,7 +391,8 @@ class dm_client:
     @staticmethod
     def EnumWindowSuper(spec1,flag1,type1,spec2,flag2,type2,sort):pass
 
-    
+    @staticmethod
+    def LeftDoubleClick():pass
     
     
     
