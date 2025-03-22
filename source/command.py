@@ -8,9 +8,27 @@
 # @时间：2025/3/22 20:59
 # @作者：LexiSiy
 # @邮箱：2172500693@163.com
+import os
+import json
 from source import DMClient
 from demo import hwnd模块
 
+def 提取颜色和坐标(dm,str,打印=1,obj=""):
+    # 分割输入字符串,提取坐标和颜色
+    parts = str.split()
+    坐标 = parts[0].split(',')
+    color = parts[1][4:6] + parts[1][2:4] + parts[1][0:2]
+    obj = {"x":int(坐标[0]),"y":int(坐标[1]),"color":color}
+    if 打印:print(obj," ---函数名称:提取颜色和坐标()")
+    if obj:return obj
+
+def 查找窗口标题(dm,打印=1,obj="")->list[int]:
+    #匹配出的窗口按照窗口打开顺序依次排列
+    keep = dm.EnumWindow(0,title,"",1 + 32)
+    hwld_LIST: list = keep['value'].split(",")
+    obj =  [int(k) for k in hwld_LIST if k != ""]
+    if 打印:print(obj," ---函数名称:查找窗口标题()")
+    if obj:return obj
 def 获取函数名称(func):
     return " ---函数名称:" + func.__name__ + "()"
 def 判断窗口是否后台绑定(dm,hwnd):
@@ -63,6 +81,12 @@ def 键鼠_后台移动点击(dm,x,y,是否激活=0,打印=1,按键=1,双击=0,�
     if 打印:print(obj," ---函数名称:键鼠_后台移动点击()")
     if obj:return obj
 
+def 键鼠_组合按键(dm,a="win",b="d",打印=1,obj=""):
+    _=dm.KeyDownChar(a)
+    __=dm.KeyPressChar(b)
+    obj=(dm.KeyUpChar(a),__,_)
+    if 打印:print(obj," ---函数名称:键鼠_组合按键()")
+    if obj:return obj
  
 """DM后台操作-----------------------------------------------------------------------------------------------------------------------------"""
 def 后台_设置截图等待时长(dm,tiem=2000,打印=1):
@@ -234,7 +258,7 @@ if __name__ == '__main__':
     
     鼠标_双击间隔(dm1,"windows3",10)
 
-    # 后台绑定窗口模式组合(dm1)
+    后台绑定窗口模式组合(dm1)
     # 后台绑定窗口模式组合(dm)
     
     # 后台_解除窗口绑定(dm)
@@ -263,8 +287,8 @@ if __name__ == '__main__':
     
     坐标集合 = title_dict[0][2]
     x,y,w,h = 坐标集合[0],坐标集合[1],坐标集合[2],坐标集合[3]
-    hwnd模块.设置窗口状态(hwnd,置底=1)
-    找图_截图保存为bmp(dm1,x,y,w,h,r"C:\Users\Administrator\Desktop\DM后台\demo\大漠文档.bmp")
+    hwnd模块.设置窗口状态(hwnd,置底=1);print(x,y,w,h)
+    找图_截图保存为bmp(dm1,x,y,w,h,r"C:\Users\Administrator\Desktop\DM后台\resource\demo\大漠文档.bmp")
     
     from source.dm_tools import 提取颜色和坐标
     arr = 提取颜色和坐标("268,14  0000FF");print(arr)

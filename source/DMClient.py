@@ -121,10 +121,8 @@ class dm_client:
     def WheelDown():
         """模拟鼠标滚轮向下"""
         
-        
-        
-        
-    """按键操作合集: back-退格 space-空格 cap-大写  ctrl alt shift win tab esc enter up down leftright------------------------------------- """
+
+    """按键操作合集"""
     @staticmethod
     def KeyDownChar(key_str):pass
     @staticmethod
@@ -184,17 +182,6 @@ class dm_client:
     @staticmethod # 获取注册在系统中的dm.dll的路径.
     def GetBasePath():
         pass
-    
-    """文件操作---------------------------------------------------------------------------------------------------------------------------"""
-    @staticmethod # 下载文件
-    def DownloadFile(url,save_file,timeout):
-        pass
-        """
-            url 字符串: 下载的url地址.
-            save_file 字符串: 要保存的文件名.
-            timeout整形数: 连接超时时间，单位是毫秒.
-        """
-    
     
     """后台设置---------------------------------------------------------------------------------------------------------------------------"""
     @staticmethod
