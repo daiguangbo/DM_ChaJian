@@ -15,7 +15,7 @@ import time
 from typing import Any,Tuple
 from source import tools
 from source import DMClient
-from source import dm_tool
+from source import dm_tools
 from demo import hwnd模块
 
 import win32api
@@ -24,7 +24,7 @@ import win32gui
 import win32con
 import subprocess
 
-from source.dm_tool import 查找窗口标题,等待程序打开并激活窗口
+from source.dm_tools import 查找窗口标题,等待程序打开并激活窗口
 
 dm = DMClient.dm_client("127.0.0.1", "9000", 0)
 dm1 = DMClient.dm_client("127.0.0.1", "9000", 1)
@@ -44,7 +44,7 @@ def 按键精灵计算相对坐标(hwnd,text,是否只返回坐标=1):
         return 0,0,0
     
 def 窗口绑定大漠对象(dm,hwnd):
-    dm_tool.窗口绑定dm对象(dm,hwnd)
+    dm_tools.窗口绑定dm对象(dm,hwnd)
 
 def 单点找色_后台(text,hwnd,dm,打印=1,备注=""):
     x,y,color = 按键精灵计算相对坐标(hwnd,text,0)

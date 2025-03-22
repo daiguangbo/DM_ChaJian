@@ -15,7 +15,7 @@ import time
 from typing import Any,Tuple
 
 from source import DMClient
-from source import dm_tool
+from source import dm_tools
 from demo import hwnd模块
 
 import win32api
@@ -44,7 +44,7 @@ def 按键精灵计算相对坐标(hwnd,text,是否只返回坐标=1):
         return 0,0,0
     
 def 窗口绑定大漠对象(dm,hwnd):
-    dm_tool.窗口绑定dm对象(dm,hwnd)
+    dm_tools.窗口绑定dm对象(dm,hwnd)
 
 def 单点找色_后台(text,hwnd,dm,打印=1,备注=""):
     x,y,color = 按键精灵计算相对坐标(hwnd,text,0)
@@ -94,7 +94,7 @@ def 计算窗口和屏幕的坐标偏移(hwnd)-> tuple[int,int]:
 
 def 计算相对坐标(hwnd,text,是否只返回坐标=1):
     x,y = 计算窗口和屏幕的坐标偏移(hwnd)
-    dict = dm_tool.提取颜色和坐标(text)
+    dict = dm_tools.提取颜色和坐标(text)
     print(dict['x'],dict['y'],"原坐标 函数:",按键精灵计算相对坐标.__name__)
     print(dict['x']-x,dict['y']-y,x,y,"偏移坐标 函数:",按键精灵计算相对坐标.__name__)
     if 是否只返回坐标:return dict['x']-x,dict['y']-y
