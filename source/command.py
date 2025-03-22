@@ -16,10 +16,10 @@ def 获取函数名称(func):
 def 判断窗口是否后台绑定(dm,hwnd):
     re = dm.IsBind(hwnd)
     if re['value'] == 0:
-        print("窗口未绑定")
+        print("窗口未绑定",re)
         return False
     else:
-        print("窗口后台已被绑定")
+        print("窗口后台已被绑定",re)
         return True
 def 枚举窗口_程序标题_子类名(标题,类名)->list:
     hwnds = dm.EnumWindowSuper(标题,8,1,类名,2,1,0)
@@ -42,7 +42,12 @@ def 后台绑定窗口模式组合(dm,组合索引=0,打印=1):
         obj = dm.BindWindowEx(hwnd,"dx2","windows3","dx.keypad.input.lock.api|dx.keypad.state.api|dx.keypad.api","dx.public.graphic.protect",0)
         if 打印: print(obj,获取函数名称(后台绑定窗口模式组合))
     if 组合索引==1:pass
-
+def 屏幕坐标转窗口坐标(dm,hwnd,打印=1,obj=""):
+    obj = dm.ClientToScreen(hwnd,0,0)
+    if 打印:print(obj," ---函数名称:屏幕坐标转窗口坐标()")
+    if obj:return obj
+    
+    
 """DM后台操作-----------------------------------------------------------------------------------------------------------------------------"""
 def 后台_设置截图等待时长(dm,tiem=2000,打印=1):
     obj = dm.SetDisplayDelay(tiem)
@@ -106,6 +111,7 @@ def 后台_临时关闭后台模式(dm,参数,打印=1):
     obj = dm.EnableBind(enable)
     if 打印: print(obj,获取函数名称(后台_临时关闭后台模式))
     return obj
+
 
 """DM键鼠操作-----------------------------------------------------------------------------------------------------------------------------"""
 def 鼠标_左键(dm,打印=1):
@@ -186,22 +192,37 @@ def 键盘_双击间隔(dm,参数,延迟,打印=1):
     if 打印: print(obj,获取函数名称(键盘_双击间隔))
     return obj
 
+
 """DM图色操作-----------------------------------------------------------------------------------------------------------------------------"""
 
 if __name__ == '__main__':
     dm = DMClient.dm_client("127.0.0.1", "9000", 0)
     dm1 = DMClient.dm_client("127.0.0.1", "9000", 1)
-    hwnd = hwnd模块.获取窗口句柄_标题("大漠插件接口说明v7.2416")
+    hwnd = hwnd模块.获取窗口句柄_标题("v2rayN - V6.23 - 2023/10/27 - 以非管理员身份运行")
     
+    print(hwnd)
     后台_解除窗口绑定(dm)
     后台_设置截图等待时长(dm)
     后台_禁止外部输入(dm,1)
     后台_禁止外部输入(dm,0)
     判断窗口是否后台绑定(dm,hwnd=hwnd)
+
+
+    # 后台绑定窗口模式组合(dm1)
+    # 后台绑定窗口模式组合(dm)
+    
+    # 后台_解除窗口绑定(dm)
+    # 后台_解除窗口绑定(dm1)
     
     后台_返回dm对象绑定的窗口句柄(dm)
     后台_返回dm对象绑定的窗口句柄(dm1)
-
-    # 后台绑定窗口模式组合(dm1)
     
+    判断窗口是否后台绑定(dm,hwnd)
+    
+    鼠标_移动(dm1,214,632)
+    鼠标_左键(dm1);dm.Delay(50)
+    
+    
+    
+
     
