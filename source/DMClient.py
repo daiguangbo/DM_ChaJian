@@ -347,3 +347,4 @@ class dm_client:
     def ImageToBmp(pic_name,bmp_name):
         """图片转为24为bmp图片"""
         pass
+    
