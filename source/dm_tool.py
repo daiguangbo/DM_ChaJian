@@ -121,9 +121,10 @@ def 窗口绑定dm对象(dms, hwnd, display="dx2", mouse="windows3", keypad="win
     :param mode: 绑定模式，默认值为 0
     :return: None
     """
-    print(dms.BindWindowEx(hwnd, display, mouse, keypad, public, mode),窗口绑定dm对象.__name__)
+    # print(dms.BindWindowEx(hwnd, display, mouse, keypad, public, mode),窗口绑定dm对象.__name__)
     # print(dms.BindWindowEx(hwnd,display, "dx.mouse.position.lock.api|dx.mouse.position.lock.message|dx.mouse.state.message", keypad,public, 0),窗口绑定dm对象.__name__)
-    
+    a=dm.BindWindowEx(hwnd,"dx2","windows3","dx.keypad.input.lock.api|dx.keypad.state.api|dx.keypad.api","dx.public.graphic.protect",0)
+    print('绑定:',a)
 def 获取函数名称(func):
     return " ---函数名称:" + func.__name__ + "()"
 

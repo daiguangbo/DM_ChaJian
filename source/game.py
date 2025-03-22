@@ -13,7 +13,7 @@
 import os
 import time
 from typing import Any,Tuple
-
+from source import tools
 from source import DMClient
 from source import dm_tool
 from demo import hwnd模块
@@ -42,6 +42,7 @@ def 按键精灵计算相对坐标(hwnd,text,是否只返回坐标=1):
     else:
         print("坐标转化失败")
         return 0,0,0
+    
 def 窗口绑定大漠对象(dm,hwnd):
     dm_tool.窗口绑定dm对象(dm,hwnd)
 
@@ -56,8 +57,6 @@ def 单点找色_后台(text,hwnd,dm,打印=1,备注=""):
             print("找到!",备注,end="")
             return x,y
     else:return 0,0
-
-
 
 def 查询软件状态并打开(标题:str="",path:str="",隐藏窗口:int=0):
     hwnd = win32gui.FindWindow(None,标题)
@@ -80,12 +79,14 @@ def 查询软件状态并打开(标题:str="",path:str="",隐藏窗口:int=0):
             break
         else: pass
     return hwnd
+
 def 关闭软件程序(hwnd):
     _,pid = win32process.GetWindowThreadProcessId(hwnd)
     print(f"窗口句柄 {hwnd} 对应的进程 ID 为 {pid}")
     handle = win32api.OpenProcess(win32con.PROCESS_TERMINATE,False,pid)
     win32api.TerminateProcess(handle,0)
     print(f"已结束进程 ID 为 {pid} 的程序")
+    
 def 计算窗口和屏幕的坐标偏移(hwnd,x偏移=8,y偏移=31)-> tuple[int,int]:
     print(dm.ClientToScreen(15074330,0,0),"临时测试")  # TODO 临时测试
     窗口状态 = win32gui.GetWindowPlacement(hwnd)
@@ -93,55 +94,6 @@ def 计算窗口和屏幕的坐标偏移(hwnd,x偏移=8,y偏移=31)-> tuple[int,
     x,y = 窗口状态[4][0]+x偏移,窗口状态[4][1]+y偏移
     return x,y
 
-
-r"""
-# from demo import hwnd模块
-#
-# path = r"C:\Users\Administrator\Desktop\Date\MyApp\v2rayN\v2rayN.exe"
-# 标题 = r"v2rayN - V6.23 - 2023/10/27 - 以管理员身份运行"
-#
-# hwnd = 查询软件状态并打开(标题, path)
-#
-# # dm_tool.窗口_解绑(dm1)
-# # 窗口绑定大漠对象(dm1,hwnd)
-#
-# hwnd模块.设置窗口状态(hwnd,改变位置=1)
-# x,y = 单点找色_后台("799,855  303030",hwnd,dm)
-# print(x,y)
-# if x and y:dm1.MoveTo(x,y)
-# if x and y:dm1.LeftClick()
-
-
-
-
-# from demo import hwnd模块
-#
-# 标题 = r"大漠插件接口说明v7.2450"
-#
-# hwnd = int(hwnd模块.根据标题枚举窗口句柄(标题)[0])
-
-# dm_tool.窗口_解绑(dm1)
-# 窗口绑定大漠对象(dm1,hwnd)
-
-
-# hwnd模块.设置窗口状态(hwnd,位置大小=1)
-# hwnd模块.设置窗口状态(hwnd,激活=1)
-# x,y = 单点找色_后台("799,855  303030",hwnd,dm)
-
-# print(x,y)
-# if x and y:dm1.MoveTo(x,y)
-# if x and y:dm1.LeftClick()
-
-
-# from demo import hwnd模块
-
-
-# hwnds = hwnd模块.根据标题枚举窗口句柄("大漠插件接口说明v7.2450")
-# hwnd模块.设置窗口状态(hwnds[0],位置大小=1)
-
-# dm.SetWindowState(hwnd,13)
-# dm.MoveWindow(hwnd,1,1)
-"""
 def 计算相对坐标(hwnd,text,偏x=8,偏y=31,是否只返回坐标=1):
     x,y = 计算窗口和屏幕的坐标偏移(hwnd,偏x,偏y)
     dict = dm_tool.提取颜色和坐标(text)
@@ -151,38 +103,23 @@ def 计算相对坐标(hwnd,text,偏x=8,偏y=31,是否只返回坐标=1):
     return dict['x']-x,dict['y']-y,dict['color']
 
 
-from source import tools
 
-""" 配置v2ray软件 """
+
 
 # 获取窗口句柄并测试
-标题 = r"v2rayN - V6.23 - 2023/10/27 - 以非管理员身份运行"
-# 路径 = r"C:\Users\Administrator\Desktop\Date\MyApp\v2rayN\v2rayN.exe"
-# 标题 = r"大漠插件接口说明v7.2450"
-# 标题 = r"RamMap - Sysinternals: www.sysinternals.com"
+title_list = [r"v2rayN - V6.23 - 2023/10/27 - 以非管理员身份运行","大漠插件接口说明v7.2450","RamMap - Sysinternals: www.sysinternals.com"
+            ,"ToDesk云电脑"]
+path_list = [r"C:\Users\Administrator\Desktop\Date\MyApp\v2rayN\v2rayN.exe"]
+class_dict = {"Todesk":"H-SMILE-FRAME"}
 
 # 窗口绑定dm
-hwnd = 132096 # dm_tool.查找窗口标题("Chrome Legacy Window")
+hwnd = hwnd模块.获取窗口句柄_标题(title_list[-1])
 print(hwnd,type(hwnd),"  ",dm,dm1)
 dm_tool.窗口绑定dm对象(dm1,hwnd)
-hwnd模块.设置窗口状态(hwnd,位置大小=1)
+dm1.ForceUnBindWindow(hwnd)
 
+# hwnd模块.设置窗口状态(hwnd,位置大小=1)
 
-
-# x,y = 计算相对坐标(hwnd,"380,393  E5E3E3",偏x=0,偏y=0)
-# time.sleep(1);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
-#
-# x,y = 计算相对坐标(hwnd,"716,470  FEFEFE",偏x=0,偏y=0)
-# time.sleep(1);print(dm1.MoveTo(x,y));print(dm1.LeftClick());dm1.LeftClick()
-#
-# x,y = 计算相对坐标(hwnd,"1317,479  F5B1AA",偏x=0,偏y=0)
-# time.sleep(1);print(dm1.MoveTo(x,y));print(dm1.LeftClick());dm1.LeftClick()
-#
-# x,y = 计算相对坐标(hwnd,"1537,823  FF907A",偏x=0,偏y=0)
-# time.sleep(1);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
-#
-# x,y = 计算相对坐标(hwnd,"1482,696  8A8786",偏x=0,偏y=0)
-# time.sleep(1);print(dm1.MoveTo(x,y));print(dm1.LeftClick())
 
 
 
@@ -191,8 +128,8 @@ def 左键点击_后台(text):
     dm1.Delay(400)
     print(dm1.MoveTo(x,y));
     print(dm1.LeftDoubleClick())
-    
-左键点击_后台("715,471  FFFFFF")
-左键点击_后台("502,302  A8A5A5")
-左键点击_后台("672,466  59514C")
-左键点击_后台("867,486  59514C")
+
+# 左键点击_后台("867,486  59514C")
+#
+# print(dm1.MoveTo(354,286));
+# print(dm1.LeftDoubleClick());dm1.Delay(500)

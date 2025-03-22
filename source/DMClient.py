@@ -53,16 +53,6 @@ class dm_client:
         pass
 
     @staticmethod
-    def FindPic(x1, y1, x2, y2, pic_name, delta_color, sim, dir):
-        """在指定区域内查找图片"""
-        pass
-
-    @staticmethod
-    def Capture(x1, y1, x2, y2, file):
-        """捕获屏幕上的指定区域并保存为图片文件"""
-        pass
-
-    @staticmethod
     def Ver():
         """获取版本信息。"""
         pass
@@ -87,26 +77,6 @@ class dm_client:
         """模拟鼠标右键点击"""
         pass
     
-    @staticmethod
-    def FindMultiColor(x1, y1, x2, y2, first_color, offset_color, sim, dir):
-        """根据指定的多点查找颜色坐标"""
-        pass
-
-    @staticmethod
-    def CaptureGif(x1, y1, x2, y2, file, delay, time):
-        """捕获屏幕上的指定区域并保存为GIF动画文件"""
-        pass
-    
-    @staticmethod
-    def CmpColor(x, y, color, sim):
-        """比较指定坐标的颜色与给定颜色的相似度"""
-        pass
-    
-    @staticmethod
-    def FindStr(x1, y1, x2, y2, string, color_format, sim):
-        """在指定区域内查找指定颜色格式的字符串"""
-        pass
-
     @staticmethod
     def Ocr(x1, y1, x2, y2, color_format, sim):
         """使用OCR技术识别指定区域内的文本"""
@@ -156,65 +126,23 @@ class dm_client:
         
     """按键操作合集: back-退格 space-空格 cap-大写  ctrl alt shift win tab esc enter up down leftright------------------------------------- """
     @staticmethod
-    def KeyDownChar(key_str):
-        """模拟键盘按住"""
-        pass
+    def KeyDownChar(key_str):pass
     @staticmethod
-    def KeyPressChar(key_str):
-        """模拟键盘按下"""
-        pass
+    def KeyPressChar(key_str):pass
     @staticmethod
-    def KeyPressStr(key_str,delay):
-        """模拟键盘输入字符串"""
-        pass
+    def KeyPressStr(key_str,delay):pass
     @staticmethod
-    def KeyUpChar(key_str):
-        """模拟键盘松开"""
-        pass
+    def KeyUpChar(key_str):pass
     @staticmethod
-    def GetCursorPos():
-        """获取当前鼠标的位置"""
-        pass
+    def GetCursorPos():pass
     
     
     """窗口操作"""
     @staticmethod # 枚举进程,按打开先后排序
-    def EnumProcess(name):
-        
-        pass
+    def EnumProcess(name):pass
     
     @staticmethod # 枚举系统中符合条件的窗口
-    def EnumWindow(parent,title,class_name,filter):
-        pass
-        """函数简介:
-                根据指定条件,枚举系统中符合条件的窗口,可以枚举到按键自带的无法枚举到的窗口
-                函数原型:
-                string EnumWindow(parent,title,class_name,filter)
-                
-                参数定义:
-                parent 整形数: 获得的窗口句柄是该窗口的子窗口的窗口句柄,取0时为获得桌面句柄
-                title 字符串: 窗口标题. 此参数是模糊匹配.
-                class_name 字符串: 窗口类名. 此参数是模糊匹配.
-                
-                filter整形数: 取值定义如下
-                1 : 匹配窗口标题,参数title有效
-                2 : 匹配窗口类名,参数class_name有效.
-                4 : 只匹配指定父窗口的第一层孩子窗口
-                8 : 匹配父窗口为0的窗口,即顶级窗口
-                16 : 匹配可见的窗口
-                32 : 匹配出的窗口按照窗口打开顺序依次排列
-                这些值可以相加,比如4+8+16就是类似于任务管理器中的窗口列表
-                
-                返回值:
-                字符串 :返回所有匹配的窗口句柄字符串,格式"hwnd1,hwnd2,hwnd3"
-                
-                示例:
-                hwnds = dm.EnumWindow(0,"QQ三国","",1+4+8+16)
-                这句是获取到所有标题栏中有QQ三国这个字符串的窗口句柄集合
-                hwnds = split(hwnds,",")
-                转换为数组后,就可以处理了
-                这里注意,hwnds数组里的是字符串,要用于使用,比如BindWindow时,还得强制类型转换,比如int(hwnds(0))
-                """
+    def EnumWindow(parent,title,class_name,filter):pass
                 
     @staticmethod # 枚举指定进程下的窗口
     def EnumWindowByProcess(process_name,title,class_name,filter):
@@ -225,36 +153,12 @@ class dm_client:
         pass
     
     @staticmethod #设置窗口的状态
-    def SetWindowState(hwnd, flag):
-        pass
-        """
-            hwnd (int): 指定的窗口句柄。
-            flag (int): 窗口状态标志，取值定义如下：
-                0: 关闭指定窗口
-                1: 激活指定窗口
-                2: 最小化指定窗口，但不激活
-                3: 最小化指定窗口，并释放内存，但同时也会激活窗口
-                4: 最大化指定窗口，同时激活窗口
-                5: 恢复指定窗口，但不激活
-                6: 隐藏指定窗口
-                7: 显示指定窗口
-                8: 置顶指定窗口
-                9: 取消置顶指定窗口
-                10: 禁止指定窗口
-                11: 取消禁止指定窗口
-                12: 恢复并激活指定窗口
-                13: 强制结束窗口所在进程
-                14: 闪烁指定的窗口
-                15: 使指定的窗口获取输入焦点
-        返回值:
-            int: 操作结果，0 表示失败，1 表示成功。
-        """
+    def SetWindowState(hwnd, flag):pass
+
     @staticmethod
-    def GetWindowState(hwnd,flag):#检测窗口属性
-        pass
-    
-    
-    
+    def GetWindowState(hwnd,flag):pass
+
+
     """其他函数"""
     @staticmethod #蜂鸣器-频率&时长
     def Beep(f=2500,duration=1000):
@@ -379,9 +283,9 @@ class dm_client:
     
     
     
-    
-    
-    
+    @staticmethod # 临时的截图函数
+    def FaqCaptureFromFile(x1, y1, x2, y2, file, quality):pass
+
     @staticmethod
     def ClientToScreen(hwnd,x,y):pass
     
@@ -394,6 +298,52 @@ class dm_client:
     @staticmethod
     def LeftDoubleClick():pass
     
+    """防护盾状态-------------------------------------------------------------------------------------------------------------------------"""
+    @staticmethod
+    def DmGuard(enable,type):pass
     
+    @staticmethod
+    def DmGuardExtract(type,path):pass
     
-
+    @staticmethod
+    def DmGuardLoadCustom(type,path):pass
+    
+    @staticmethod
+    def DmGuardParams(cmd,subcmd,param):pass
+    
+    @staticmethod
+    def UnLoadDriver():pass
+    
+    """图色操作---------------------------------------------------------------------------------------------------------------------------"""
+    @staticmethod
+    def FindPic(x1,y1,x2,y2,pic_name,delta_color,sim,dir):
+        """在指定区域内查找图片:dm.FindPic(0,0,200,400,"1.bmp|3.bmp","000000",0.9,0"""
+        pass
+    @staticmethod
+    def Capture(x1,y1,x2,y2,file):
+        """抓取位图"""
+        pass
+    @staticmethod
+    def BGR2RGB(bgr_color):
+        """把BGR(按键格式)的颜色格式转换为RGB"""
+        pass
+    @staticmethod
+    def FindMultiColor(x1,y1,x2,y2,first_color,offset_color,sim,dir):
+        """根据指定的多点查找颜色坐标"""
+        pass
+    @staticmethod
+    def CaptureGif(x1,y1,x2,y2,file,delay,time):
+        """捕获屏幕上的指定区域并保存为GIF动画文件"""
+        pass
+    @staticmethod
+    def CmpColor(x,y,color,sim):
+        """比较指定坐标的颜色与给定颜色的相似度"""
+        pass
+    @staticmethod
+    def FindStr(x1,y1,x2,y2,string,color_format,sim):
+        """在指定区域内查找指定颜色格式的字符串"""
+        pass
+    @staticmethod
+    def ImageToBmp(pic_name,bmp_name):
+        """图片转为24为bmp图片"""
+        pass
