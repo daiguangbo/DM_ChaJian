@@ -42,12 +42,28 @@ def 后台绑定窗口模式组合(dm,组合索引=0,打印=1):
         obj = dm.BindWindowEx(hwnd,"dx2","windows3","dx.keypad.input.lock.api|dx.keypad.state.api|dx.keypad.api","dx.public.graphic.protect",0)
         if 打印: print(obj,获取函数名称(后台绑定窗口模式组合))
     if 组合索引==1:pass
-def 屏幕坐标转窗口坐标(dm,hwnd,打印=1,obj=""):
+def 窗口_屏幕坐标转窗口坐标(dm,hwnd,打印=1,obj=""):
     obj = dm.ClientToScreen(hwnd,0,0)
     if 打印:print(obj," ---函数名称:屏幕坐标转窗口坐标()")
     if obj:return obj
-    
-    
+def 窗口_计算与屏幕偏移量(dm,hwnd,打印=1,obj=""):
+    _=窗口_屏幕坐标转窗口坐标(dm,hwnd,打印=0)
+    __=hwnd模块.获取窗口状态(hwnd,打印=0)
+    x1,y1 = _['value'][0],_['value'][1]
+    x2,y2 = __[4][0], __[4][1]
+    obj = (x1-x2,y1-y2)
+    if 打印:print(obj," ---函数名称:窗口_计算与屏幕偏移量()")
+    if obj:return obj
+def 键鼠_后台移动点击(dm,x,y,是否激活=0,打印=1,按键=1,双击=0,延迟=50,obj=""):
+    _=鼠标_移动(dm1,x,y )
+    hwnd模块.设置窗口状态(hwnd,激活=是否激活)
+    dm.Delay(1000)
+    if 双击:obj=(鼠标_双击(dm1),_);dm.Delay(延迟)
+    else:obj=(鼠标_左键(dm1),_);dm.Delay(延迟)
+    if 打印:print(obj," ---函数名称:键鼠_后台移动点击()")
+    if obj:return obj
+
+ 
 """DM后台操作-----------------------------------------------------------------------------------------------------------------------------"""
 def 后台_设置截图等待时长(dm,tiem=2000,打印=1):
     obj = dm.SetDisplayDelay(tiem)
@@ -194,19 +210,29 @@ def 键盘_双击间隔(dm,参数,延迟,打印=1):
 
 
 """DM图色操作-----------------------------------------------------------------------------------------------------------------------------"""
+def 找色_单点找色(dm,x,y,color,sim=0.8,打印=1,obj=""):
+    obj = dm.CmpColor(x,y,color,sim)
+    if 打印:print(obj," ---函数名称:找色_单点找色()")
+    if obj:return obj
+
+def 找图_单图(dm,x1,y1,x2,y2,pic_name,delta_color="",sim=0.8,查找方向=0,打印=1,obj=""):
+    obj = dm.FindPic(x1,y1,x2,y2,pic_name,delta_color,sim,查找方向)
+    if 打印:print(obj," ---函数名称:找图_单图()")
+    if obj:return obj
+
+def 找图_截图保存为bmp(dm,x1,y1,x2,y2,path_file,打印=1,obj=""):
+    obj = dm.Capture(x1, y1, x2, y2, path_file)
+    if 打印:print(obj," ---函数名称:找图_截图保存为bmp()")
+    if obj:return obj
 
 if __name__ == '__main__':
+    title_dict = {0:["大漠插件接口说明v7.2416",(-8,-31),(0, 0, 692, 469)]}
+    
     dm = DMClient.dm_client("127.0.0.1", "9000", 0)
     dm1 = DMClient.dm_client("127.0.0.1", "9000", 1)
-    hwnd = hwnd模块.获取窗口句柄_标题("v2rayN - V6.23 - 2023/10/27 - 以非管理员身份运行")
+    hwnd = hwnd模块.获取窗口句柄_标题(title_dict[0][0]);print(hwnd)
     
-    print(hwnd)
-    后台_解除窗口绑定(dm)
-    后台_设置截图等待时长(dm)
-    后台_禁止外部输入(dm,1)
-    后台_禁止外部输入(dm,0)
-    判断窗口是否后台绑定(dm,hwnd=hwnd)
-
+    鼠标_双击间隔(dm1,"windows3",10)
 
     # 后台绑定窗口模式组合(dm1)
     # 后台绑定窗口模式组合(dm)
@@ -216,13 +242,36 @@ if __name__ == '__main__':
     
     后台_返回dm对象绑定的窗口句柄(dm)
     后台_返回dm对象绑定的窗口句柄(dm1)
-    
     判断窗口是否后台绑定(dm,hwnd)
     
-    鼠标_移动(dm1,214,632)
-    鼠标_左键(dm1);dm.Delay(50)
     
-    
-    
+    # 鼠标_移动(dm1,33,203 )
+    # 鼠标_左键(dm1);dm.Delay(50)
 
+    # 鼠标_移动(dm1,358,286)
+    # 鼠标_双击(dm1);dm.Delay(1000)
+    # 鼠标_双击(dm1);dm.Delay(1000)
+    # 鼠标_双击(dm1);dm.Delay(1000)
+
+    # 窗口_计算与屏幕偏移量(dm,hwnd)
+    # hwnd模块.设置窗口状态(hwnd,改变位置=1,位置=title_dict[0][1])
+
+
+    # 键鼠_后台移动点击(dm1,358,286,双击=1,是否激活=1)
+    # 键鼠_后台移动点击(dm1,358,286,双击=1,是否激活=1)
+    # 键鼠_后台移动点击(dm1,358,286,双击=1,是否激活=1)
+    
+    坐标集合 = title_dict[0][2]
+    x,y,w,h = 坐标集合[0],坐标集合[1],坐标集合[2],坐标集合[3]
+    hwnd模块.设置窗口状态(hwnd,置底=1)
+    找图_截图保存为bmp(dm1,x,y,w,h,r"C:\Users\Administrator\Desktop\DM后台\demo\大漠文档.bmp")
+    
+    from source.dm_tools import 提取颜色和坐标
+    arr = 提取颜色和坐标("268,14  0000FF");print(arr)
+    找色_单点找色(dm1,arr['x'],arr['y'],arr['color'])
+    
+    
+    
+    
+    
     

@@ -280,9 +280,7 @@ class dm_client:
     
     @staticmethod
     def UnBindWindow(): pass
-    
-    
-    
+
     @staticmethod # 临时的截图函数
     def FaqCaptureFromFile(x1, y1, x2, y2, file, quality):pass
 
@@ -348,3 +346,9 @@ class dm_client:
         """图片转为24为bmp图片"""
         pass
     
+    
+    
+    
+    
+    @staticmethod
+    def SetMouseDelay(type,delay):pass

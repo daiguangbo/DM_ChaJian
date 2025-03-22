@@ -168,9 +168,15 @@ def 识别图片验证码(path):
         print(f"识别失败，错误信息：{response_data['msg']}")
         return False
 
+def 计算窗口和屏幕的坐标偏移(hwnd,x偏移=8,y偏移=31)-> tuple[int,int]:
+    print(dm.ClientToScreen(15074330,0,0),"临时测试")  # TODO 临时测试
+    窗口状态 = win32gui.GetWindowPlacement(hwnd)
+    print("窗口状态:",窗口状态)
+    x,y = 窗口状态[4][0]+x偏移,窗口状态[4][1]+y偏移
+    return x,y
 
-
-
+if __name__ == '__main__':
+    print()
 
 
 

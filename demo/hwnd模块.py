@@ -2,7 +2,7 @@ from typing import Tuple
 
 import win32gui
 import win32con
-from win32con import SWP_NOSIZE
+from win32con import SWP_NOMOVE,SWP_NOSIZE
 
 
 def 根据标题枚举窗口句柄(目标窗口标题):
@@ -17,7 +17,7 @@ def 根据标题枚举窗口句柄(目标窗口标题):
 def 获取窗口句柄_标题(title):
     return win32gui.FindWindow(None, title)
 
-def 设置窗口状态(hwnd,最大化=0,最小化=0,改变大小=0,大小=(1280,720),改变位置=0,位置=(346,186),全屏置顶=0,激活=0,位置大小=0,关闭窗口=0):
+def 设置窗口状态(hwnd,最大化=0,最小化=0,改变大小=0,大小=(1280,720),改变位置=0,位置=(346,186),全屏置顶=0,激活=0,位置大小=0,关闭窗口=0,置底=0):
     if hwnd:
         if 最大化:
             win32gui.ShowWindow(hwnd,win32con.SW_MAXIMIZE)
@@ -27,6 +27,7 @@ def 设置窗口状态(hwnd,最大化=0,最小化=0,改变大小=0,大小=(1280,
             win32gui.SetWindowPos(hwnd,win32con.HWND_TOP,0,0,大小[0],大小[1],win32con.SWP_NOMOVE)
         if 改变位置:
             win32gui.SetWindowPos(hwnd,win32con.HWND_TOP,位置[0],位置[1],0,0,win32con.SWP_NOSIZE)
+            print(f"窗口已移动到 ({位置[0]}, {位置[1]})")
         if 全屏置顶:
             win32gui.SetWindowPos(hwnd,win32con.HWND_TOP,0,0,1920,1080,win32con.SWP_SHOWWINDOW)
             win32gui.ShowWindow(hwnd,win32con.SW_MAXIMIZE)
@@ -60,21 +61,23 @@ def 设置窗口状态(hwnd,最大化=0,最小化=0,改变大小=0,大小=(1280,
             win32gui.SetWindowPos(hwnd,win32con.HWND_TOP,346,186,1280,720,win32con.SWP_NOACTIVATE)
             
             print(f"窗口已移动到 ({346}, {186})，大小为 {1280}x{720}。")
-            
+        if 置底:
+            win32gui.ShowWindow(hwnd,win32con.SW_RESTORE)
+            win32gui.SetWindowPos(hwnd,win32con.HWND_BOTTOM,346,186,1280,720,win32con.SWP_NOSIZE|win32con.SWP_NOMOVE)
         if 关闭窗口:
             win32gui.PostMessage(hwnd,win32con.WM_CLOSE,0,0)
     else: print("句柄不存在!")
 
-def 获取窗口状态(hwnd):
-    return win32gui.GetWindowPlacement(hwnd)
-    
-def 获取窗口xywh()->tuple[int,int,int,int]:
+def 获取窗口xywh(hwnd)->tuple[int,int,int,int]:
     # 获取当前窗口的位置和大小
     左,上,右,下 = win32gui.GetWindowRect(hwnd)
     宽度,高度 = 右 - 左,下 - 上
     return 左,右,宽度,高度
 
-
+def 获取窗口状态(hwnd,打印=1,obj=""):
+    obj = win32gui.GetWindowPlacement(hwnd)
+    if 打印:print(obj," ---函数名称:获取窗口状态()")
+    if obj:return obj
 
 if __name__ == '__main__':
     import time
